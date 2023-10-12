@@ -10,17 +10,30 @@ class BaseModel():
     """
     Base Class containing all attributes/methods for other classes
     """
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """
         class instatiation
 
         Args:
-            id: uniq_id of obj
+            *args: uniq_id of obj(not used in implementation)
+            **kwargs: dict of args(create insatance from dict)
 
         """
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if kwargs:
+            for key, value in kwargs.items():
+                if key != "__class__":
+                    if key == "created_at" or key == "updated_at":
+                        date_format = "%Y-%m-%dT%H:%M:%S.%f"
+                        setattr(self, key,
+                                datetime.strptime(value, date_format))
+                    elif key == "id":
+                        setattr(self, key, str(value))
+                    else:
+                        setattr(self, key, value)
+        if not kwargs:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """

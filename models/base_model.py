@@ -31,9 +31,11 @@ class BaseModel():
                     else:
                         setattr(self, key, value)
         if not kwargs:
+            from models import storage
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            storage.new(self)
 
     def __str__(self):
         """
@@ -46,8 +48,9 @@ class BaseModel():
         """
         updates the public instance attribute  the current datetime
         """
+        from models import storage
         self.updated_at = datetime.now()
-        return self
+        storage.save()
 
     def to_dict(self):
         """

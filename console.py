@@ -21,9 +21,9 @@ class HBNBCommand(cmd.Cmd):
         """
         return True
 
-    def empty_line(self):
+    def emptyline(self):
         """
-        an empty line + ENTER shouldn’t execute anything
+        an empty line plus ENTER shouldt execute anything
         """
         pass
 

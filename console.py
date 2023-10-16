@@ -18,13 +18,22 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb)"
 
     classes = {
-        "BaseModel" : BaseModel,
-        "User" : User,
-        "Place" : Place,
-        "Review" : Review,
-        "Amenity" : Amenity,
-        "City" : City,
-        "State" : State,
+        "BaseModel": BaseModel,
+        "User": User,
+        "Place": Place,
+        "Review": Review,
+        "Amenity": Amenity,
+        "City": City,
+        "State": State,
+    }
+
+    __objects = {
+        'User': {},
+        'Place': {},
+        'State': {},
+        'City': {},
+        'Amenity': {},
+        'Review': {},
     }
 
     def do_create(self, line):
@@ -84,7 +93,7 @@ class HBNBCommand(cmd.Cmd):
         if cmd_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        
+
         if not cmd_id:
             print("** instance id missing **")
             return

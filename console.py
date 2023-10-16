@@ -17,7 +17,7 @@ from models.state import State
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb)"
 
-    class_list = {
+    classes = {
         "BaseModel" : BaseModel,
         "User" : User,
         "Place" : Place,
@@ -81,7 +81,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        if cmd_name not in HBNBCommand.class_list:
+        if cmd_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
         

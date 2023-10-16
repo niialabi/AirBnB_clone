@@ -7,10 +7,25 @@ import cmd
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
+from models.place import Place
+from models.review import Review
+from models.amenity import Amenity
+from models.city import City
+from models.state import State
 
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb)"
+
+    class_list = {
+        "BaseModel" : BaseModel,
+        "User" : User,
+        "Place" : Place,
+        "Review" : Review,
+        "Amenity" : Amenity,
+        "City" : City,
+        "State" : State,
+    }
 
     def do_create(self, line):
         """
@@ -55,16 +70,30 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_show(self, line):
-        args = line.split()
-        if (len(args) == 1):
+        """
+        Prints the str rep of an inst based on the class name and id
+        """
+        args = line.partition(" ")
+        cmd_name = args[0]
+        cmd_id = args[2]
+
+        if not cmd_name:
             print("** class name missing **")
-        if (len(args) > 1):
-            cls_name = args[1]
-            print(cls_name)
-            try:
-                globals()[cls_name]
-            except KeyError:
-                print("** class doesn't exist **")
+            return
+
+        if cmd_name not in HBNBCommand.class_list:
+            print("** class doesn't exist **")
+            return
+        
+        if not cmd_id:
+            print("** instance id missing **")
+            return
+
+        key = cmd_name + "." + cmd_id
+        try:
+            print(storage._FileStorage__objects[key])
+        except KeyError:
+            print("** no instance found **")
 
 
 if __name__ == "__main__":

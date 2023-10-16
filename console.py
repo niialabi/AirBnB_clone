@@ -14,11 +14,10 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """
-        Creates a new instance of BaseModel, saves it 
+        Creates a new instance of BaseModel, saves
         (to the JSON file) and prints the id
         """
         new_base_model = eval(BaseModel())
-
 
     def do_EOF(self, line):
         """
@@ -40,13 +39,13 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """
-        Creates a new instance of BaseModel, saves it 
+        Creates a new instance of BaseModel, saves it
         (to the JSON file) and prints the id.
         """
         if not line:
             print("** class name missing **")
             return
-        
+
         try:
             cls = globals()[line]
             instance = cls()
@@ -65,9 +64,7 @@ class HBNBCommand(cmd.Cmd):
             try:
                 globals()[cls_name]
             except KeyError:
-                print("** class doesn't exist **")    
-
-
+                print("** class doesn't exist **")
 
 
 if __name__ == "__main__":
